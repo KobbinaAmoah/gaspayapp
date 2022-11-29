@@ -21,7 +21,7 @@ class AppLargeButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 60,
+        height: 50,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: backgroundColor,
@@ -36,7 +36,7 @@ class AppLargeButton extends StatelessWidget {
           text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 40,
+            fontSize: 25,
             color: textColor
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gaspayapp/controllers/auth_controller.dart';
 import 'package:gaspayapp/pages/home.dart';
 import 'package:gaspayapp/pages/login_page.dart';
 import 'package:gaspayapp/widgets/large_buttons.dart';
@@ -12,16 +13,12 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class InitState extends State<SignUpScreen> {
+    final _formKey = GlobalKey<FormState>();
+    final AuthController controller = Get.find();
+    bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return initWidget();
-  }
-  Widget initWidget() {
-    TextEditingController fullname = TextEditingController();
-    TextEditingController number = TextEditingController();
-    TextEditingController id = TextEditingController();
-    TextEditingController email = TextEditingController();
-    TextEditingController password = TextEditingController();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -33,31 +30,33 @@ class InitState extends State<SignUpScreen> {
               //         fit: BoxFit.cover,
               //         image: AssetImage("images/background.png"))),
               child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 50),
-                      height: 200,
-                      width: 200,
-                      child: Image.asset("images/logo.png"),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(const LoginPage());
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 20, top: 20),
-                        alignment: Alignment.topRight,
-                        child: const Text(
-                          "Sign up",
-                          style:
-                              TextStyle(fontSize: 25, color: Colors.black),
-                        ),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(top: 50),
+                        height: 200,
+                        width: 200,
+                        child: Image.asset("images/logo.png"),
                       ),
-                    )
-                  ],
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(const LoginPage());
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 20, top: 20),
+                          alignment: Alignment.center,
+                          child: const Text(
+                            "Sign up",
+                            style: TextStyle(fontSize: 25, color: Colors.black),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -82,11 +81,20 @@ class InitState extends State<SignUpScreen> {
                     Icons.person,
                     color: Colors.grey,
                   ),
-                  hintText: "Enter Fullname",
+                  hintText: "Full Name",
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
-                controller: fullname,
+                onChanged: (value) {
+                  controller.name.value = value;
+                },
+                style: const TextStyle(fontSize: 17),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter your name";
+                  }
+                  return null;
+                },
               ),
             ),
             Container(
@@ -105,18 +113,61 @@ class InitState extends State<SignUpScreen> {
               alignment: Alignment.center,
               child: TextFormField(
                 cursorColor: Colors.indigo,
-                controller: number,
-                decoration: const InputDecoration(
-                  icon: Icon(
+                onChanged: (value) {
+                  controller.name.value = value;
+                },
+                style: const TextStyle(fontSize: 17),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter a valid phone number";
+                  } else if (value.length < 9) {
+                    return "Please enter a valid phone number";
+                  } else if (value.startsWith("0")) {
+                    return "Remove the 0 from the beginning of your phone number";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  prefixText: controller.phone.value.isEmpty ? "+233 " : "",
+                  icon: const Icon(
                     Icons.phone_android,
                     color: Colors.grey,
                   ),
-                  hintText: "Enter Phone Number",
+                  hintText: "Phone Number",
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
               ),
             ),
+            // Container(
+            //   margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            //   padding: const EdgeInsets.only(left: 20, right: 20),
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(50),
+            //     color: Colors.black26,
+            //     boxShadow: const [
+            //       BoxShadow(
+            //           offset: Offset(0, 10),
+            //           blurRadius: 50,
+            //           color: Colors.white)
+            //     ],
+            //   ),
+            //   alignment: Alignment.center,
+            //   child: TextFormField(
+            //     cursorColor: Colors.indigo,
+            //     controller: id,
+            //     decoration: const InputDecoration(
+            //       icon: Icon(
+            //         Icons.numbers,
+            //         color: Colors.grey,
+            //       ),
+            //       hintText: "Enter national ID number",
+            //       enabledBorder: InputBorder.none,
+            //       focusedBorder: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
               padding: const EdgeInsets.only(left: 20, right: 20),
@@ -133,41 +184,22 @@ class InitState extends State<SignUpScreen> {
               alignment: Alignment.center,
               child: TextFormField(
                 cursorColor: Colors.indigo,
-                controller: id,
-                decoration: const InputDecoration(
-                  icon: Icon(
-                    Icons.numbers,
-                    color: Colors.grey,
-                  ),
-                  hintText: "Enter national ID number",
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Colors.black26,
-                boxShadow: const [
-                  BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 50,
-                      color: Colors.white)
-                ],
-              ),
-              alignment: Alignment.center,
-              child: TextFormField(
-                cursorColor: Colors.indigo,
-                controller: email,
+                onChanged: (value) {
+                  controller.email.value = value;
+                },
+                style: const TextStyle(fontSize: 17),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter a valid phone number";
+                  }
+                  return null;
+                },
                 decoration: const InputDecoration(
                   icon: Icon(
                     Icons.email,
                     color: Colors.grey,
                   ),
-                  hintText: "Enter Email",
+                  hintText: "Email Address",
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
@@ -189,14 +221,25 @@ class InitState extends State<SignUpScreen> {
               alignment: Alignment.center,
               child: TextFormField(
                 obscureText: true,
-                controller: password,
+                onChanged: (value) {
+                  controller.name.value = value;
+                },
+                style: const TextStyle(fontSize: 17),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please create a password";
+                  } else if (value.length < 6) {
+                    return "Password must be at least 6 characters";
+                  }
+                  return null;
+                },
                 cursorColor: Colors.indigo,
                 decoration: const InputDecoration(
                   icon: Icon(
                     Icons.vpn_key_outlined,
                     color: Colors.grey,
                   ),
-                  hintText: "Enter Password",
+                  hintText: "Password",
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
@@ -231,44 +274,86 @@ class InitState extends State<SignUpScreen> {
             //     ),
             //   ),
             // ),
-            GestureDetector(
-              onTap: () => {
-              Get.to(const LoginPage())
-              },
-              child: Container(
-                margin: const EdgeInsets.only(
-                    left: 20, right: 20, top: 40, bottom: 50),
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                alignment: Alignment.center,
-                height: 54,
-                // decoration: BoxDecoration(
-                //   gradient: LinearGradient(
-                //       colors: [(new Color(0xFF5C6B6CB)), (new Color(0xFF5C6B6CB))],
-                //       begin: Alignment.centerLeft,
-                //       end: Alignment.centerRight
-                //   ),
-                //   boxShadow: [BoxShadow(
-                //       offset: Offset(0, 10),
-                //       blurRadius: 50,
-                //       color: Colors.white
-                //   )],
-                // ),
-                child: AppLargeButton(
-
-                  onTap: () {
-                    Get.to(() => const HomePage());
-                    // print("Fullname: ${fullname.text}");
-                    // print("email: ${email.text}");
-                    // print("id: ${id.text}");
-                    // print("number: ${number.text}");
-                    // print("password: ${password.text}");
-                    // print("cPassword: ${cPassword.text}");
-                  },
-                  text: "Sign Up",
-                  textColor: Colors.white,
-                ),
+            isLoading
+                ? const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Colors.black),
+                  )
+                : GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isLoading = true;
+                    
+                      });
+                      controller.signup().then((value) {
+                        showDialog(
+                            context: context,
+                            builder: ((context) {
+                              return AlertDialog(
+                                title: const Text("Verification Sent"),
+                                content: Text(
+                                    "A verification link has been sent to ${controller.email.value}"),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Get.to(() => const LoginPage());
+                                      },
+                                      child: const Text("Okay"))
+                                ],
+                              );
+                            }));
+                      }).catchError((e) {
+                        setState(() {
+                        isLoading = false;
+                    
+                      });
+                        showDialog(
+                            context: context,
+                            builder: ((context) {
+                              return AlertDialog(
+                                title: const Text("Error Ocurred!"),
+                                content: Text("$e"),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text("Okay"))
+                                ],
+                              );
+                            }));
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                          left: 20, right: 20, top: 20, bottom: 10),
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      alignment: Alignment.center,
+                      height: 54,
+                      child: AppLargeButton(
+                        onTap: () {
+                          Get.to(() => const HomePage());
+                        },
+                        text: "Sign Up",
+                        textColor: Colors.white,
+                      ),
+                    ),
+                  ),
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Already have an account?"),
+                  GestureDetector(
+                    onTap: () => {Get.to(const LoginPage())},
+                    child: const Text(
+                      " Sign In",
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  )
+                ],
               ),
-            ),
+            )
           ],
         ),
       ),

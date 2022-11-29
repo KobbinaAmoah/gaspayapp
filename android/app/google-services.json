@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "901050829504",
+    "project_id": "gaspayapp-ad959",
+    "storage_bucket": "gaspayapp-ad959.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901050829504:android:0f903c4b2973393aa53b25",
+        "android_client_info": {
+          "package_name": "com.kobbina.gaspay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901050829504-abod3idqm59qe0n46uifugucc65oae5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD58NUM8NryxRnB5dOdczEnkZbeLF6kQQk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901050829504-abod3idqm59qe0n46uifugucc65oae5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
