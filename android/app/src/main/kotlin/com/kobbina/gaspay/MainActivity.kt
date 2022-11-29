@@ -1,4 +1,4 @@
-package com.example.gaspayapp
+package com.kobbina.gaspay
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gaspayapp/pages/Splash.dart';
-import 'package:get/get.dart ';
+import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 
-void main() {
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+ await initialize();
   runApp(const MyApp());
 }
 
