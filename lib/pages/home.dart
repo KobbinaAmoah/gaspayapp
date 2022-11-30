@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gaspayapp/component/colors.dart';
 import 'package:gaspayapp/controllers/data_controllers.dart';
-import 'package:gaspayapp/pages/deposit_page.dart';
+import 'package:gaspayapp/pages/scan_page.dart';
 import 'package:gaspayapp/pages/login_page.dart';
 import 'package:gaspayapp/pages/payment_page.dart';
 import 'package:gaspayapp/widgets/buttons.dart';
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                                       textColor: Colors.white,
                                       backgroundColor: Colors.white,
                                       onTap: () {
-                                        Get.to (Deposit());
+                                        Get.to (Scanpage());
                                         },
                                       text: "Deposit",
                                     ),

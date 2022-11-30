@@ -36,6 +36,7 @@ dependencies:
   get: null
   nb_utils: ^4.6.25
   flutter_native_splash: ^2.2.16
+  qr_code_scanner:
 
 
 dev_dependencies:
