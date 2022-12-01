@@ -4,6 +4,7 @@ import 'package:gaspayapp/pages/home.dart';
 import 'package:gaspayapp/pages/login_page.dart';
 import 'package:gaspayapp/widgets/large_buttons.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -13,12 +14,11 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class InitState extends State<SignUpScreen> {
-    final _formKey = GlobalKey<FormState>();
-    final AuthController controller = Get.find();
-    bool isLoading = false;
+  final _formKey = GlobalKey<FormState>();
+  final AuthController controller = Get.find();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -114,7 +114,7 @@ class InitState extends State<SignUpScreen> {
               child: TextFormField(
                 cursorColor: Colors.indigo,
                 onChanged: (value) {
-                  controller.name.value = value;
+                  controller.phone.value = value;
                 },
                 style: const TextStyle(fontSize: 17),
                 validator: (value) {
@@ -189,8 +189,10 @@ class InitState extends State<SignUpScreen> {
                 },
                 style: const TextStyle(fontSize: 17),
                 validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Please enter a valid phone number";
+                  if (!value!.validateEmail()) {
+                    return "Please enter a valid email";
+                  }else if (value.isEmpty) {
+                    return "Please enter email address";
                   }
                   return null;
                 },
@@ -222,7 +224,7 @@ class InitState extends State<SignUpScreen> {
               child: TextFormField(
                 obscureText: true,
                 onChanged: (value) {
-                  controller.name.value = value;
+                  controller.password.value = value;
                 },
                 style: const TextStyle(fontSize: 17),
                 validator: (value) {
@@ -278,64 +280,58 @@ class InitState extends State<SignUpScreen> {
                 ? const CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation(Colors.black),
                   )
-                : GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isLoading = true;
-                    
-                      });
-                      controller.signup().then((value) {
-                        showDialog(
-                            context: context,
-                            builder: ((context) {
-                              return AlertDialog(
-                                title: const Text("Verification Sent"),
-                                content: Text(
-                                    "A verification link has been sent to ${controller.email.value}"),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Get.to(() => const LoginPage());
-                                      },
-                                      child: const Text("Okay"))
-                                ],
-                              );
-                            }));
-                      }).catchError((e) {
+                : Container(
+                    margin: const EdgeInsets.only(
+                        left: 10, right: 10, top: 20, bottom: 10),
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    alignment: Alignment.center,
+                    height: 54,
+                    child: AppLargeButton(
+                      onTap: () {
+                        if (!_formKey.currentState!.validate()) return;
                         setState(() {
-                        isLoading = false;
-                    
-                      });
-                        showDialog(
-                            context: context,
-                            builder: ((context) {
-                              return AlertDialog(
-                                title: const Text("Error Ocurred!"),
-                                content: Text("$e"),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text("Okay"))
-                                ],
-                              );
-                            }));
-                      });
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                          left: 20, right: 20, top: 20, bottom: 10),
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      alignment: Alignment.center,
-                      height: 54,
-                      child: AppLargeButton(
-                        onTap: () {
-                          Get.to(() => const HomePage());
-                        },
-                        text: "Sign Up",
-                        textColor: Colors.white,
-                      ),
+                          isLoading = true;
+                        });
+                        controller.signup().then((value) {
+                          showDialog(
+                              context: context,
+                              builder: ((context) {
+                                return AlertDialog(
+                                  title: const Text("Verification Sent"),
+                                  content: Text(
+                                      "A verification link has been sent to ${controller.email.value}"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Get.to(() => const LoginPage());
+                                        },
+                                        child: const Text("Okay"))
+                                  ],
+                                );
+                              }));
+                        }).catchError((e) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          showDialog(
+                              context: context,
+                              builder: ((context) {
+                                return AlertDialog(
+                                  title: const Text("Error Ocurred!"),
+                                  content: Text("$e"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text("Okay"))
+                                  ],
+                                );
+                              }));
+                        });
+                      },
+                      text: "Sign Up",
+                      textColor: Colors.white,
                     ),
                   ),
             Container(

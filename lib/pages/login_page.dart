@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gaspayapp/component/error_dialog.dart';
 import 'package:gaspayapp/controllers/auth_controller.dart';
 import 'package:gaspayapp/pages/home.dart';
 import 'package:gaspayapp/pages/sign_up.dart';
 import 'package:get/get.dart';
-
+import 'package:nb_utils/nb_utils.dart';
 import '../widgets/large_buttons.dart';
 
 class LoginPage extends StatefulWidget {
@@ -114,6 +116,12 @@ class _LoginPageState extends State<LoginPage> {
                 onChanged: (value) {
                   controller.email.value = value;
                 },
+                validator: (value) {
+                  if (!value.validateEmail()) {
+                    return "Please enter valid email";
+                  }
+                  return null;
+                },
                 cursorColor: Colors.indigo,
                 decoration: const InputDecoration(
                   icon: Icon(
@@ -142,6 +150,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
               alignment: Alignment.center,
               child: TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter password";
+                  }
+                  return null;
+                },
                 obscureText: true,
                 cursorColor: Color.fromARGB(245, 198, 182, 203),
                 style: const TextStyle(fontSize: 17),
@@ -177,35 +191,25 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 : AppLargeButton(
                     onTap: () {
+                      if (!_formKey.currentState!.validate()) return;
                       setState(() {
                         isLoading = true;
                       });
-                      try {
-                        controller.login().then((value) {
-                          if (value) {
-                            Get.offAll(() => const HomePage());
-                          }
-                        });
-                      } catch (e) {
+
+                      controller.login().then((value) {
+                        if (value) {
+                          Get.offAll(() => const HomePage());
+                        }
+                      }).catchError((e) {
                         setState(() {
                           isLoading = false;
                         });
                         showDialog(
                             context: context,
                             builder: ((context) {
-                              return AlertDialog(
-                                title: const Text("Error Ocurred!"),
-                                content: Text("$e"),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text("Okay"))
-                                ],
-                              );
+                              return ErrorDialog(e.toString());
                             }));
-                      }
+                      });
                     },
                     text: "LOGIN",
                     textColor: Colors.white,

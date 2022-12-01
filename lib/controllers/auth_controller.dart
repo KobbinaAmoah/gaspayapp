@@ -10,7 +10,6 @@ class AuthController extends GetxController {
   final _auth = FirebaseAuth.instance;
 
   Future<bool> login() async {
-
     try {
       var cred = await _auth.signInWithEmailAndPassword(
           email: email.value, password: password.value);
@@ -18,50 +17,42 @@ class AuthController extends GetxController {
       if (user != null
           //TODO: && user.emailVerified
           ) {
-      
         return true;
       } else {
-      
-        return throw (FirebaseAuthException(
-            message: "Please verify your email", code: "0"));
+        throw ("Please verify your email");
       }
     } on FirebaseAuthException catch (e) {
-    
       throw (e.message ?? "Something went wrong");
     } catch (e) {
-    
       rethrow;
     }
   }
 
   Future<bool> signup() async {
-
     try {
+      print("Email:${email.value} Password:${password.value} Name:${name.value} Phone:${phone.value}");
       var cred = await _auth.createUserWithEmailAndPassword(
           email: email.value, password: password.value);
       var user = cred.user;
       if (user != null && !user.emailVerified) {
-        user.sendEmailVerification();
-        user.updateDisplayName(name.value);
+        await user.sendEmailVerification();
+        await user.updateDisplayName(name.value);
         UserModel newUser = UserModel(
             name: name.value,
             email: email.value,
-            phone: phone.value,
+            phone: "+233${phone.value}",
             createdAt: DateTime.now(),
             uid: user.uid);
         await newUser.saveNewUser();
-      
         return true;
       } else {
-      
-        return throw (FirebaseAuthException(
-            message: "Something went wrong", code: "0"));
+        throw ("Something went wrong");
       }
     } on FirebaseAuthException catch (e) {
-    
+      print(e);
       throw (e.message ?? "Something went wrong");
     } catch (e) {
-    
+      print(e);
       rethrow;
     }
   }
