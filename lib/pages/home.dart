@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
 
   _headSection() {
     return SizedBox(
-      height: 310,
+      height: 240,
       child: Stack(
         children: [
          _mainbackground(),
@@ -197,7 +197,7 @@ class _HomePageState extends State<HomePage> {
 
   _listbills() {
     return Positioned(
-        top: 320,
+        top: 220,
         left: 0,
         right: 0,
         bottom: 0,

@@ -34,7 +34,7 @@ class PaymentPage extends StatelessWidget {
             ),
             Text("Payment Successful !",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 25,
               fontWeight: FontWeight.bold,
               color: AppColor.mainColor,
             ),
