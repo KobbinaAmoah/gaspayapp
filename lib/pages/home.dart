@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                   context: context,
                   builder: (BuildContext bc) {
                     return SizedBox(
-                      height: MediaQuery.of(context).size.height - 250,
+                      height: MediaQuery.of(context).size.height - 180,
                       child: Stack(
                         children: [
                           Positioned(
@@ -85,14 +85,14 @@ class _HomePageState extends State<HomePage> {
                               child: Container(
                                 color: Color(0xFFeef1f4).withOpacity(0.7),
                                 width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height - 320,
+                                height: MediaQuery.of(context).size.height - 240,
                               )),
                           Positioned(
                               right: 50,
                               child: Container(
-                                margin: const EdgeInsets.only(top: 5),
+                                margin: const EdgeInsets.only(top: 10),
                                 width: 60,
-                                height: 300,
+                                height: 290,
                                 decoration: BoxDecoration(
                                   color: AppColor.mainColor,
                                   borderRadius: BorderRadius.circular(29),

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gaspayapp/widgets/large_buttons.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'dart:math' as math;
 
 
@@ -56,8 +55,6 @@ class _SendMoneyState extends State<SendMoney> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset (images.brand1,
-                            width: 60, height: 45, fit: BoxFit.cover),
                         const Padding(
                           padding: EdgeInsets.only(top: 20, right: 5),
                           child: Text('\$20,000.00',
@@ -68,10 +65,10 @@ class _SendMoneyState extends State<SendMoney> {
                         ),
                       ],
                     ),
-                    const Gap(24),
+
                     customColumn(
                         title: 'CARD NUMBER', subtitle: '3829 4820 4629 5025'),
-                    const Gap(15)
+
                   ],
                 ),
               ),
@@ -120,9 +117,6 @@ class _SendMoneyState extends State<SendMoney> {
               ),
             ],
           ),
-          const Gap(20),
-          const PeopleSlider(),
-          const Gap(10),
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -157,7 +151,6 @@ class _SendMoneyState extends State<SendMoney> {
                                       color: Color(0xFF73be93),
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold)),
-                              const Gap(8),
                               Icon(CupertinoIcons.chevron_down,
                                   color: Color(0xFF73be93),
                                   size: 18)
@@ -172,7 +165,6 @@ class _SendMoneyState extends State<SendMoney> {
                     child: Text('Send Money Purpose',
                         style:
                         TextStyle(color: Color(0xFF6f7c8b)))),
-                const Gap(10),
               ],
             ),
           ),
@@ -188,7 +180,6 @@ class _SendMoneyState extends State<SendMoney> {
         Text(title.toUpperCase(),
             style:
             TextStyle(fontSize: 11, color: Colors.white.withOpacity(0.5))),
-        const Gap(2),
         Text(subtitle,
             style:
             TextStyle(fontSize: 16, color: Colors.white.withOpacity(0.8))),

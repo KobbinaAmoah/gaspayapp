@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
+import 'package:gaspayapp/widgets/buttons.dart';
+import 'package:gaspayapp/widgets/large_buttons.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 //void main() => runApp(const MaterialApp(home: MyHome()));
@@ -16,14 +16,15 @@ class Scanpage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Scan to pay')),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
+
+        child: AppLargeButton(
+          onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => const QRViewExample(),
             ));
           },
-          child:
-          const Text('Tap to scan'),
+          text: 'Tap to scan',
+          textColor: Colors.white,
         ),
       ),
     );
@@ -116,24 +117,21 @@ class _QRViewExampleState extends State<QRViewExample> {
                     children: <Widget>[
                       Container(
                         margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                          onPressed: () async {
+                        child: AppButtons(
+                          onTap: () async {
                             await controller?.pauseCamera();
-                          },
-                          child: const Text('pause',
-                              style: TextStyle(fontSize: 20)),
+                          }, text: 'Pause', icon: Icons.pause,
+                          ),
                         ),
-                      ),
                       Container(
                         margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                          onPressed: () async {
+                        child: AppButtons(
+                          onTap: () async {
                             await controller?.resumeCamera();
                           },
-                          child: const Text('resume',
-                              style: TextStyle(fontSize: 20)),
+                          icon: Icons.restart_alt, text: 'resume',
+                          ),
                         ),
-                      )
                     ],
                   ),
                 ],
