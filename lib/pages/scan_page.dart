@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:gaspayapp/pages/inputpage.dart';
+import 'package:gaspayapp/pages/pin_verify.dart';
 import 'package:gaspayapp/widgets/buttons.dart';
 import 'package:gaspayapp/widgets/large_buttons.dart';
+import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 //void main() => runApp(const MaterialApp(home: MyHome()));
@@ -68,8 +71,13 @@ class _QRViewExampleState extends State<QRViewExample> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   if (result != null)
-                    Text(
-                        'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+                    TextButton
+                      (
+                      onPressed:(){
+                        Get.to (verify());
+                      },child:Text(
+                        'Continue to payment')
+                    )
                   else
                     const Text('Scan a code'),
                   Row(

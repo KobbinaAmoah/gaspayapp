@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gaspayapp/component/colors.dart';
 import 'package:gaspayapp/controllers/data_controllers.dart';
+import 'package:gaspayapp/pages/deposit.dart';
+import 'package:gaspayapp/pages/pin_verify.dart';
 import 'package:gaspayapp/pages/scan_page.dart';
 import 'package:gaspayapp/pages/login_page.dart';
 import 'package:gaspayapp/pages/payment_page.dart';
@@ -117,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                                       textColor: Colors.white,
                                       backgroundColor: Colors.white,
                                       onTap: () {
-                                        Get.to (Scanpage());
+                                        Get.to (SendMoney());
                                         },
                                       text: "Deposit",
                                     ),
@@ -126,8 +128,10 @@ class _HomePageState extends State<HomePage> {
                                       iconColor: AppColor.mainColor,
                                       textColor: Colors.white,
                                       backgroundColor: Colors.white,
-                                      onTap: () {},
-                                      text: "Add bill",
+                                      onTap: () {
+                                        Get.to (Scanpage());
+                                      },
+                                      text: "Scan to Pay",
                                     ),
                                     AppButtons(
                                       icon: Icons.history,
@@ -197,7 +201,7 @@ class _HomePageState extends State<HomePage> {
 
   _listbills() {
     return Positioned(
-        top: 220,
+        top: 250,
         left: 0,
         right: 0,
         bottom: 0,
@@ -281,7 +285,7 @@ class _HomePageState extends State<HomePage> {
                                     _controller.list.refresh();
                                   },
                                   child: Container(
-                                    width: 80,
+                                    width: 70,
                                     height: 30,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(30),
@@ -289,6 +293,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     child: Text(
                                       "Select",
+                                      textAlign: TextAlign.justify,
                                       style: TextStyle(
                                           fontSize: 20,
                                           color: _controller.list[index]["status"]==false?AppColor.selectColor:Colors.white),
@@ -338,7 +343,7 @@ class _HomePageState extends State<HomePage> {
     return Positioned(
         bottom: 10,
         child: AppLargeButton(
-          onTap: (){Get.to(()=>PaymentPage());},
+          onTap: (){Get.to(()=>verify());},
           text: "Pay Bills",
           textColor: Colors.white,
         ));

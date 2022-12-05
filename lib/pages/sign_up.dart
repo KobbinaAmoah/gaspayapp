@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gaspayapp/controllers/auth_controller.dart';
-import 'package:gaspayapp/pages/home.dart';
+
 import 'package:gaspayapp/pages/login_page.dart';
 import 'package:gaspayapp/widgets/large_buttons.dart';
 import 'package:get/get.dart';
@@ -242,6 +242,46 @@ class InitState extends State<SignUpScreen> {
                     color: Colors.grey,
                   ),
                   hintText: "Password",
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.black26,
+                boxShadow: const [
+                  BoxShadow(
+                      offset: Offset(0, 10),
+                      blurRadius: 50,
+                      color: Colors.white)
+                ],
+              ),
+              alignment: Alignment.center,
+              child: TextFormField(
+                obscureText: true,
+                onChanged: (value) {
+                  controller.password.value = value;
+                },
+                style: const TextStyle(fontSize: 17),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please create a pin";
+                  } else if (value.length > 4) {
+                    return "Password must be 4 characters";
+                  }
+                  return null;
+                },
+                cursorColor: Colors.indigo,
+                decoration: const InputDecoration(
+                  icon: Icon(
+                    Icons.vpn_key_outlined,
+                    color: Colors.grey,
+                  ),
+                  hintText: "Enter 4 digit pin",
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
