@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gaspayapp/model/user_model.dart';
 import 'package:get/get.dart';
-
+import 'package:nb_utils/nb_utils.dart';
 class AuthController extends GetxController {
   RxString email = "".obs;
   RxString password = "".obs;
   RxString name = "".obs;
   RxString phone = "".obs;
+  RxString pin ="".obs;
   final _auth = FirebaseAuth.instance;
 
   Future<bool> login() async {
@@ -30,7 +31,7 @@ class AuthController extends GetxController {
 
   Future<bool> signup() async {
     try {
-      print("Email:${email.value} Password:${password.value} Name:${name.value} Phone:${phone.value}");
+
       var cred = await _auth.createUserWithEmailAndPassword(
           email: email.value, password: password.value);
       var user = cred.user;
@@ -44,6 +45,7 @@ class AuthController extends GetxController {
             createdAt: DateTime.now(),
             uid: user.uid);
         await newUser.saveNewUser();
+        await setValue("pin", pin.value);
         return true;
       } else {
         throw ("Something went wrong");

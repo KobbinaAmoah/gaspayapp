@@ -263,8 +263,9 @@ class InitState extends State<SignUpScreen> {
               alignment: Alignment.center,
               child: TextFormField(
                 obscureText: true,
+                maxLength: 4,
                 onChanged: (value) {
-                  controller.password.value = value;
+                  controller.pin.value = value;
                 },
                 style: const TextStyle(fontSize: 17),
                 validator: (value) {
@@ -278,7 +279,7 @@ class InitState extends State<SignUpScreen> {
                 cursorColor: Colors.indigo,
                 decoration: const InputDecoration(
                   icon: Icon(
-                    Icons.vpn_key_outlined,
+                    Icons.pin,
                     color: Colors.grey,
                   ),
                   hintText: "Enter 4 digit pin",

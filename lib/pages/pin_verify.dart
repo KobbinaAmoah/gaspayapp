@@ -1,88 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-class verify extends StatelessWidget {
-  const verify({Key? key}) : super(key: key);
+import 'package:gaspayapp/component/error_dialog.dart';
+import 'package:gaspayapp/pages/home.dart';
+import 'package:gaspayapp/pages/sign_up.dart';
+import 'package:get/get.dart';
+import '../controllers/auth_controller.dart';
+import '../widgets/large_buttons.dart';
+import 'package:nb_utils/nb_utils.dart';
+
+class Verify extends StatefulWidget {
+  @override
+  State<Verify> createState() => _VerifyState();
+}
+
+class _VerifyState extends State<Verify> {
+  // const Verify({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
+final pinController= TextEditingController();
+  final AuthController controller = Get.put(AuthController());
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            height: 68,
-            width: 64,
-            child: TextFormField(
-              onChanged: (value){
-                if (value.length == 1){
-                  FocusScope.of(context).nextFocus();
-                }
-              },
-              onSaved: (pin1) {},
-              decoration: const InputDecoration(hintText: "0"),
-              style: Theme.of(context).textTheme.headline6,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              inputFormatters: [LengthLimitingTextInputFormatter(1),
-              FilteringTextInputFormatter.digitsOnly],
+    return Scaffold(
+      body: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+          margin: const EdgeInsets.only(left: 20, right: 20, top: 120,bottom: 45),
+        padding: const EdgeInsets.only(left: 20, right: 20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          color: Colors.black26,
+          boxShadow: const [
+            BoxShadow(
+                offset: Offset(0, 10),
+                blurRadius: 50,
+                color: Colors.white)
+          ],
+        ),
+        alignment: Alignment.center,
+        child: TextFormField(
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "Please enter pin to verify payment";
+            }
+            return null;
+          },
+          obscureText: true,
+          cursorColor: const Color.fromARGB(245, 198, 182, 203),
+          style: const TextStyle(fontSize: 17),
+          controller: pinController,
+          decoration: const InputDecoration(
+            icon: Icon(
+              Icons.pin,
+              color: Colors.grey,
             ),
+            hintText: "Enter pin to verify payment",
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
           ),
-          SizedBox(
-            height: 68,
-            width: 64,
-            child: TextFormField(
-              onChanged: (value){
-                if (value.length == 1){
-                  FocusScope.of(context).nextFocus();
-                }
-              },
-              decoration: const InputDecoration(hintText: "0"),
-              style: Theme.of(context).textTheme.headline6,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              inputFormatters: [LengthLimitingTextInputFormatter(1),
-                FilteringTextInputFormatter.digitsOnly],
-            ),
-          ),
-          SizedBox(
-            height: 68,
-            width: 64,
-            child: TextFormField(
-              onChanged: (value){
-                if (value.length == 1){
-                  FocusScope.of(context).nextFocus();
-                }
-              },
-              decoration: const InputDecoration(hintText: "0"),
-              style: Theme.of(context).textTheme.headline6,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              inputFormatters: [LengthLimitingTextInputFormatter(1),
-                FilteringTextInputFormatter.digitsOnly],
-            ),
-          ),
-          SizedBox(
-            height: 68,
-            width: 64,
-            child: TextFormField(
-              onChanged: (value){
-                if (value.length == 1){
-                  FocusScope.of(context).nextFocus();
-                }
-              },
-              decoration: const InputDecoration(hintText: "0"),
-              style: Theme.of(context).textTheme.headline6,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              inputFormatters: [LengthLimitingTextInputFormatter(1),
-                FilteringTextInputFormatter.digitsOnly],
-            ),
-          ),
-        ],
+        ),
       ),
+              isLoading
+                  ? const CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation(Colors.black),
+              )
+                  : AppLargeButton(
+                onTap: () {
+                  if (!_formKey.currentState!.validate()) return;
+                  if (pinController.value != getStringAsync('pin')) {
+                    showDialog(context: context, builder: (context) {
+                      return const ErrorDialog("Incorrect Pin");
+                    });
+                  }
+//TODO: Navigate to payment/receipt
+                },
+                text: "Confirm PIN",
+                textColor: Colors.white,
+              ).paddingSymmetric(horizontal: 20),
 
+            ],
+          )
+      ),
     );
-
   }
 }

@@ -28,13 +28,14 @@ class _SendMoneyState extends State<SendMoney> {
       backgroundColor: Color(0xFFecf1f4),
       appBar: myAppBar(title: 'Deposit', implyLeading: true, context: context),
       bottomSheet: Container(
-        color: Color(0xFFecf1f4),
+        color: Colors.grey,
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
         child: AppLargeButton(
-          // color: Color(0xFFf1f4f8),
+          //color: Color(0xFFf1f4f8),
           // context: context,
          // callback: () {},
           text: 'Send Money',
+          textColor: Colors.white,
         ),
       ),
       body: ListView(
@@ -47,7 +48,7 @@ class _SendMoneyState extends State<SendMoney> {
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Color(0xFFecf1f4),
+                  color: Colors.black,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,17 +58,17 @@ class _SendMoneyState extends State<SendMoney> {
                       children: [
                         const Padding(
                           padding: EdgeInsets.only(top: 20, right: 5),
-                          child: Text('\$20,000.00',
+                          child: Text('\₵20,000.00',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 21,
-                                  color: Colors.white)),
+                                  color: Colors.black)),
                         ),
                       ],
                     ),
 
                     customColumn(
-                        title: 'CARD NUMBER', subtitle: '3829 4820 4629 5025'),
+                        title: 'PHONE NUMBER', subtitle: '0249657537'),
 
                   ],
                 ),
@@ -121,7 +122,7 @@ class _SendMoneyState extends State<SendMoney> {
             width: double.infinity,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Color(0xFF73be93),
+                color: Colors.grey,
                 border: Border.all(color: Color(0xFF73be93))            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

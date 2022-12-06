@@ -27,41 +27,38 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Container(
-              height: 300,
-              // decoration: const BoxDecoration(
-              //     image: DecorationImage(
-              //         fit: BoxFit.cover,
-              //         image: AssetImage("images/background.png"))),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 50),
-                      child: Image.asset("images/logo.png"),
-                      height: 200,
-                      width: 200,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(const LoginPage());
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 20, top: 20),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "Sign In",
-                          style: TextStyle(fontSize: 25, color: Colors.black),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 300,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 50),
+                          child: Image.asset("images/logo.png"),
+                          height: 200,
+                          width: 200,
                         ),
-                      ),
-                    )
-                  ],
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(const LoginPage());
+                            },
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 20, top: 20),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              "Sign In",
+                              style: TextStyle(fontSize: 25, color: Colors.black),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
             // Container(
             //   height: 300,
             //   decoration: BoxDecoration(

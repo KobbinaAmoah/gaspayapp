@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:gaspayapp/pages/inputpage.dart';
 import 'package:gaspayapp/pages/pin_verify.dart';
 import 'package:gaspayapp/widgets/buttons.dart';
 import 'package:gaspayapp/widgets/large_buttons.dart';
@@ -74,7 +73,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                     TextButton
                       (
                       onPressed:(){
-                        Get.to (verify());
+                        Get.to(() => Verify());
                       },child:Text(
                         'Continue to payment')
                     )

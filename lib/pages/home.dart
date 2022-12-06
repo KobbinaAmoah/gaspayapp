@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gaspayapp/component/colors.dart';
 import 'package:gaspayapp/controllers/data_controllers.dart';
-import 'package:gaspayapp/pages/deposit.dart';
+import 'package:gaspayapp/pages/send_money.dart';
 import 'package:gaspayapp/pages/pin_verify.dart';
 import 'package:gaspayapp/pages/scan_page.dart';
 import 'package:gaspayapp/pages/login_page.dart';
-import 'package:gaspayapp/pages/payment_page.dart';
 import 'package:gaspayapp/widgets/buttons.dart';
 import 'package:gaspayapp/widgets/large_buttons.dart';
 import 'package:gaspayapp/widgets/text_size.dart';
@@ -46,6 +45,28 @@ class _HomePageState extends State<HomePage> {
               }
             }),
             _payButton(),
+          Positioned(
+              left: 10,
+              top: 70,
+              child: Text(
+            "Pending ",
+            style: TextStyle(
+              fontSize: 60,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+            ),
+          )),
+            Positioned(
+                right: 50,
+                top: 120,
+                child: Text(
+                  "Payments",
+                  style: TextStyle(
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white
+                  ),
+                ))
           ],
         ),
       ),
@@ -54,7 +75,7 @@ class _HomePageState extends State<HomePage> {
 
   _headSection() {
     return SizedBox(
-      height: 240,
+      height: 250,
       child: Stack(
         children: [
          _mainbackground(),
@@ -85,16 +106,16 @@ class _HomePageState extends State<HomePage> {
                           Positioned(
                               bottom: 0,
                               child: Container(
-                                color: Color(0xFFeef1f4).withOpacity(0.7),
+                                color: Color(0xFFeef1f4).withOpacity(0.5),
                                 width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height - 240,
+                                height: MediaQuery.of(context).size.height - 260,
                               )),
                           Positioned(
                               right: 50,
                               child: Container(
                                 margin: const EdgeInsets.only(top: 10),
                                 width: 60,
-                                height: 290,
+                                height: 270,
                                 decoration: BoxDecoration(
                                   color: AppColor.mainColor,
                                   borderRadius: BorderRadius.circular(29),
@@ -149,9 +170,9 @@ class _HomePageState extends State<HomePage> {
                                       textColor: Colors.white,
                                       backgroundColor: Colors.white,
                                       onTap: () {
-                                        Get.to (LoginPage());
+                                        Get.to(() => LoginPage());
                                       },
-                                      text: "Exit",
+                                      text: "Logout",
                                     ),
 
                                   ],
@@ -182,14 +203,14 @@ class _HomePageState extends State<HomePage> {
          child: Container(
        decoration: BoxDecoration(
            image: DecorationImage(
-               fit: BoxFit.cover, image: AssetImage("images/logo.png"))),
+               fit: BoxFit.cover, image: AssetImage("images/background.png"))),
      ));
    }
 
   _curveImageContainer() {
     return Positioned(
         left: 0,
-        right: -2,
+        right: -5,
         bottom: 0,
         child: Container(
           height: MediaQuery.of(context).size.height * 0.1,
@@ -343,7 +364,7 @@ class _HomePageState extends State<HomePage> {
     return Positioned(
         bottom: 10,
         child: AppLargeButton(
-          onTap: (){Get.to(()=>verify());},
+          onTap: (){Get.to(()=>Verify());},
           text: "Pay Bills",
           textColor: Colors.white,
         ));
