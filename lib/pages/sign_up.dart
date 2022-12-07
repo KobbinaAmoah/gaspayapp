@@ -295,6 +295,7 @@ class InitState extends State<SignUpScreen> {
                         controller.signup().then((value) {
                           showDialog(
                               context: context,
+                              barrierDismissible: false,
                               builder: ((context) {
                                 return AlertDialog(
                                   title: const Text("Verification Sent"),
