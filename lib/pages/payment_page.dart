@@ -10,13 +10,13 @@ class PaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
-    double w = MediaQuery.of(context).size.width;
+    // double w = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 50,left: 20, right: 20),
         decoration: BoxDecoration(
             image: DecorationImage(
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
                 image: AssetImage("images/paymentbackground.png")
             )
         ),
@@ -34,7 +34,7 @@ class PaymentPage extends StatelessWidget {
             ),
             Text("Payment Successful !",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 25,
               fontWeight: FontWeight.bold,
               color: AppColor.mainColor,
             ),
