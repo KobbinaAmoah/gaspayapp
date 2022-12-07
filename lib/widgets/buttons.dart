@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gaspayapp/component/colors.dart';
 
-
 class AppButtons extends StatelessWidget {
   final double? fontSize;
   final IconData icon;
@@ -10,11 +9,12 @@ class AppButtons extends StatelessWidget {
   final Color? iconColor;
   final Color? textColor;
   final String? text;
-  const AppButtons({Key? key,
-  this.fontSize=20,
-    this.textColor=AppColor.mainColor,
-    this.iconColor=Colors.white,
-    this.backgroundColor=AppColor.mainColor,
+  const AppButtons({
+    Key? key,
+    this.fontSize = 20,
+    this.textColor = AppColor.mainColor,
+    this.iconColor = Colors.white,
+    this.backgroundColor = AppColor.mainColor,
     required this.text,
     required this.icon,
     this.onTap,
@@ -33,14 +33,19 @@ class AppButtons extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               color: backgroundColor,
             ),
-            child: Icon(icon, size:30, color: iconColor,),
+            child: Icon(
+              icon,
+              size: 30,
+              color: iconColor,
+            ),
           ),
-          text!=null?Text(
-            text!,
-          style: TextStyle(
-            fontSize: 14,
-            color: textColor
-          ),):Container()
+          text != null
+              ? Text(
+                  text!,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 14, color: textColor),
+                )
+              : Container()
         ],
       ),
     );

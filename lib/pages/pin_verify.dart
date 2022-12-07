@@ -16,7 +16,7 @@ class Verify extends StatefulWidget {
 class _VerifyState extends State<Verify> {
   // const Verify({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
-final pinController= TextEditingController();
+  final pinController = TextEditingController();
   final AuthController controller = Get.put(AuthController());
 
   bool isLoading = false;
@@ -25,7 +25,7 @@ final pinController= TextEditingController();
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Verify Pin"),
+        title: const Text("Verify Pin"),
         centerTitle: true,
         backgroundColor: Colors.white24,
       ),
@@ -36,65 +36,66 @@ final pinController= TextEditingController();
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-          margin: const EdgeInsets.only(left: 20, right: 20, top: 120,bottom: 45),
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: Colors.black26,
-          boxShadow: const [
-            BoxShadow(
-                offset: Offset(0, 10),
-                blurRadius: 50,
-                color: Colors.white)
-          ],
-        ),
-        alignment: Alignment.center,
-        child: TextFormField(
-          validator: (value) {
-            if (value!.isEmpty) {
-              return "Please enter pin to verify payment";
-            }
-            return null;
-          },
-          obscureText: true,
-          cursorColor: const Color.fromARGB(245, 198, 182, 203),
-          style: const TextStyle(fontSize: 17),
-          controller: pinController,
-          keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
-            icon: Icon(
-              Icons.pin,
-              color: Colors.grey,
-            ),
-            hintText: "Enter pin to verify payment",
-            enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
-          ),
-        ),
-      ),
-              isLoading
-                  ? const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(Colors.black),
-              )
-                  : AppLargeButton(
-                onTap: () {
-                  if (!_formKey.currentState!.validate()) return;
-                  if (pinController.value == "1234") {
-                    Get.to(()=>PaymentPage());
-                  }else{
-                    showDialog(context: context, builder: (context) {
-                      return const ErrorDialog("Incorrect Pin");
-                    });
-                  }
-
-                },
-                text: "Confirm PIN",
-                textColor: Colors.white,
-              ).paddingSymmetric(horizontal: 20),
-
+                margin: const EdgeInsets.only(
+                    left: 20, right: 20, top: 120, bottom: 45),
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.black26,
+                  boxShadow: const [
+                    BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 50,
+                        color: Colors.white)
+                  ],
+                ),
+                alignment: Alignment.center,
+                child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter pin to verify payment";
+                    } else if (value.length > 4) {
+                      return "Pin must be 4 digits";
+                    } else if (value.length < 4) {
+                      return "Pin must be 4 digits";
+                    }
+                    return null;
+                  },
+                  obscureText: true,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  cursorColor: const Color.fromARGB(245, 198, 182, 203),
+                  style: const TextStyle(fontSize: 17),
+                  controller: pinController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    icon: Icon(
+                      Icons.pin,
+                      color: Colors.grey,
+                    ),
+                    hintText: "Enter pin to verify payment",
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                  ),
+                ),
+              ),
+               AppLargeButton(
+                      onTap: () {
+                        if (!_formKey.currentState!.validate()) return;
+                        if (pinController.text == getStringAsync("pin")) {
+                          Get.to(() => PaymentPage());
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const ErrorDialog("Incorrect Pin");
+                              });
+                        }
+                      },
+                      text: "Confirm PIN",
+                      textColor: Colors.white,
+                    ).paddingSymmetric(horizontal: 20),
             ],
-          )
-      ),
+          )),
     );
   }
 }

@@ -20,62 +20,61 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final DataController _controller = Get.put(DataController());
-final _paymentController = Get.put(PaymentController());
+  final _paymentController = Get.put(PaymentController());
   @override
   Widget build(BuildContext context) {
     print(_controller.list);
     double h = MediaQuery.of(context).size.height;
     //double w = MediaQuery.of(context).size.width;
     return Scaffold(
-    //     appBar: AppBar(leading: Icon(
-    //     Icons.notes,
-    //     size: 30,
-    //     color: Colors.white,
-    // ),
-    // toolbarHeight: 30,
-    // elevation: 0,
-    // backgroundColor: Colors.transparent,
-    // actions:[
-    // Padding(padding: EdgeInsets.only(right: 15.0),
-    // child: Icon(
-    // Icons.info,
-    // size: 30,
-    // color: Colors.white,
-    // )
-    // )
-    // ],
-    //     ),
-    //
+      //     appBar: AppBar(leading: Icon(
+      //     Icons.notes,
+      //     size: 30,
+      //     color: Colors.white,
+      // ),
+      // toolbarHeight: 30,
+      // elevation: 0,
+      // backgroundColor: Colors.transparent,
+      // actions:[
+      // Padding(padding: EdgeInsets.only(right: 15.0),
+      // child: Icon(
+      // Icons.info,
+      // size: 30,
+      // color: Colors.white,
+      // )
+      // )
+      // ],
+      //     ),
+      //
       backgroundColor: AppColor.backGroundColor,
       body: SizedBox(
         height: h,
         child: Stack(
           children: [
             _headSection(),
-            Obx((){
-              if(_controller.loading == false){
+            Obx(() {
+              if (_controller.loading == false) {
                 return Center(
                   child: Container(
                       width: 100,
                       height: 100,
                       child: const CircularProgressIndicator()),
                 );
-              }else{
+              } else {
                 return _listbills();
               }
             }),
             _payButton(),
-          const Positioned(
-              left: 10,
-              top: 70,
-              child: Text(
-            "Pending ",
-            style: TextStyle(
-              fontSize: 60,
-              fontWeight: FontWeight.bold,
-              color: Colors.white
-            ),
-          )),
+            const Positioned(
+                left: 10,
+                top: 70,
+                child: Text(
+                  "Pending ",
+                  style: TextStyle(
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                )),
             const Positioned(
                 right: 50,
                 top: 120,
@@ -84,8 +83,7 @@ final _paymentController = Get.put(PaymentController());
                   style: TextStyle(
                       fontSize: 60,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white
-                  ),
+                      color: Colors.white),
                 ))
           ],
         ),
@@ -98,7 +96,7 @@ final _paymentController = Get.put(PaymentController());
       height: 250,
       child: Stack(
         children: [
-         _mainbackground(),
+          _mainbackground(),
           _curveImageContainer(),
           _buttoncontainer(),
           //_textContainer(),
@@ -128,22 +126,23 @@ final _paymentController = Get.put(PaymentController());
                               child: Container(
                                 color: const Color(0xFFeef1f4).withOpacity(0.5),
                                 width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height - 260,
+                                height:
+                                    MediaQuery.of(context).size.height - 260,
                               )),
                           Positioned(
-                              right: 50,
+                              right: MediaQuery.of(context).size.width*0.11,
                               child: Container(
                                 margin: const EdgeInsets.only(top: 10),
-                                width: 60,
-                                height: 270,
+                                padding: const EdgeInsets.all(6),
+                                width: MediaQuery.of(context).size.width*0.18,
+                                height: MediaQuery.of(context).size.height*0.45,
                                 decoration: BoxDecoration(
                                   color: AppColor.mainColor,
                                   borderRadius: BorderRadius.circular(29),
                                 ),
-
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-
                                     AppButtons(
                                       icon: Icons.cancel,
                                       iconColor: AppColor.mainColor,
@@ -160,8 +159,8 @@ final _paymentController = Get.put(PaymentController());
                                       textColor: Colors.white,
                                       backgroundColor: Colors.white,
                                       onTap: () {
-                                        Get.to (const Deposit());
-                                        },
+                                        Get.to(const Deposit());
+                                      },
                                       text: "Deposit",
                                     ),
                                     AppButtons(
@@ -170,7 +169,7 @@ final _paymentController = Get.put(PaymentController());
                                       textColor: Colors.white,
                                       backgroundColor: Colors.white,
                                       onTap: () {
-                                        Get.to (const Scanpage());
+                                        Get.to(const Scanpage());
                                       },
                                       text: "Scan to Pay",
                                     ),
@@ -180,7 +179,7 @@ final _paymentController = Get.put(PaymentController());
                                       textColor: Colors.white,
                                       backgroundColor: Colors.white,
                                       onTap: () {
-                                        Get.to (const HomePage());
+                                        Get.to(const HomePage());
                                       },
                                       text: "History",
                                     ),
@@ -194,7 +193,6 @@ final _paymentController = Get.put(PaymentController());
                                       },
                                       text: "Logout",
                                     ),
-
                                   ],
                                 ),
                               ))
@@ -207,7 +205,8 @@ final _paymentController = Get.put(PaymentController());
               height: 60,
               width: 60,
               decoration: BoxDecoration(
-                image: const DecorationImage(image: AssetImage("images/lines.png")),
+                image: const DecorationImage(
+                    image: AssetImage("images/lines.png")),
                 boxShadow: [
                   BoxShadow(
                       blurRadius: 15,
@@ -218,14 +217,14 @@ final _paymentController = Get.put(PaymentController());
             )));
   }
 
-   _mainbackground() {
-     return Positioned(
-         child: Container(
-       decoration: const BoxDecoration(
-           image: DecorationImage(
-               fit: BoxFit.cover, image: AssetImage("images/background.png"))),
-     ));
-   }
+  _mainbackground() {
+    return Positioned(
+        child: Container(
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.cover, image: AssetImage("images/background.png"))),
+    ));
+  }
 
   _curveImageContainer() {
     return Positioned(
@@ -256,7 +255,8 @@ final _paymentController = Get.put(PaymentController());
                   margin: const EdgeInsets.only(top: 20, right: 20),
                   height: 110,
                   width: MediaQuery.of(context).size.width - 20,
-                  decoration: const BoxDecoration(color: Colors.white,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(30),
                           bottomRight: Radius.circular(30)),
@@ -284,8 +284,8 @@ final _paymentController = Get.put(PaymentController());
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           fit: BoxFit.cover,
-                                          image:
-                                              AssetImage(_controller.list[index]["img"]))),
+                                          image: AssetImage(
+                                              _controller.list[index]["img"]))),
                                 ),
                                 const SizedBox(
                                   width: 10,
@@ -300,7 +300,7 @@ final _paymentController = Get.put(PaymentController());
                                           fontWeight: FontWeight.w700),
                                     ),
                                     Text(
-                                        _controller.list[index]["date"],
+                                      _controller.list[index]["date"],
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: AppColor.idColor,
@@ -310,8 +310,12 @@ final _paymentController = Get.put(PaymentController());
                                 ),
                               ],
                             ),
-                            SizedText(text: _controller.list[index]["more"], color: AppColor.green),
-                            const SizedBox(height: 0,),
+                            SizedText(
+                                text: _controller.list[index]["more"],
+                                color: AppColor.green),
+                            const SizedBox(
+                              height: 0,
+                            ),
                           ],
                         ),
                         Row(
@@ -320,17 +324,18 @@ final _paymentController = Get.put(PaymentController());
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 GestureDetector(
-                                  onTap: (){
-                                    _controller.list[index]["status"]=!_controller.list[index]["status"];
+                                  onTap: () {
+                                    _controller.list[index]["status"] =
+                                        !_controller.list[index]["status"];
                                     print(_controller.list[index]["status"]);
                                     _controller.list.refresh();
-                                    if(_controller.list[index]["status"]==false){
-                                      _paymentController.removeCart(_controller.list[index]);
-
-                  }
-                                    else
-                  {
-                                      _paymentController.addToCart(_controller.list[index]);
+                                    if (_controller.list[index]["status"] ==
+                                        false) {
+                                      _paymentController
+                                          .removeCart(_controller.list[index]);
+                                    } else {
+                                      _paymentController
+                                          .addToCart(_controller.list[index]);
                                     }
                                   },
                                   child: Container(
@@ -339,26 +344,33 @@ final _paymentController = Get.put(PaymentController());
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(30),
-                                        color: _controller.list[index]["status"]==false?AppColor.selectBackground:AppColor.green
-                                    ),
+                                        color: _controller.list[index]
+                                                    ["status"] ==
+                                                false
+                                            ? AppColor.selectBackground
+                                            : AppColor.green),
                                     child: Text(
                                       "Select",
                                       style: TextStyle(
                                           fontSize: 20,
-                                          color: _controller.list[index]["status"]==false?AppColor.selectColor:Colors.white),
+                                          color: _controller.list[index]
+                                                      ["status"] ==
+                                                  false
+                                              ? AppColor.selectColor
+                                              : Colors.white),
                                     ),
                                   ),
                                 ),
                                 Expanded(child: Container()),
                                 Text(
-                                 "\$"+_controller.list[index]["due"],
+                                  "\$" + _controller.list[index]["due"],
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w900,
                                       color: AppColor.selectColor),
                                 ),
                                 Text(
-                                 "status",
+                                  "status",
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w700,
@@ -392,7 +404,9 @@ final _paymentController = Get.put(PaymentController());
     return Positioned(
         bottom: 10,
         child: AppLargeButton(
-          onTap: (){Get.to(()=>Verify());},
+          onTap: () {
+            Get.to(() => Verify());
+          },
           text: "Pay Bills",
           textColor: Colors.white,
         ));
