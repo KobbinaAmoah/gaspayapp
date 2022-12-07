@@ -1,193 +1,122 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gaspayapp/widgets/large_buttons.dart';
-import 'dart:math' as math;
+import 'package:gaspayapp/component/colors.dart';
 
+void main()=>runApp(const MaterialApp(
+  home: Deposit(),
+  debugShowCheckedModeBanner: false,
+));
 
-class SendMoney extends StatefulWidget {
-  const SendMoney({Key? key}) : super(key: key);
+class Deposit extends StatefulWidget {
+  const Deposit({Key? key}) : super(key: key);
 
   @override
-  _SendMoneyState createState() => _SendMoneyState();
+  State<Deposit> createState() => _DepositState();
 }
 
-class _SendMoneyState extends State<SendMoney> {
-  final ScrollController _scrollController = ScrollController();
-  @override
-  void initState() {
-    _scrollController.addListener(() {
-      print(_scrollController.offset);
-    });
-    super.initState();
-  }
-
+class _DepositState extends State<Deposit> {
   @override
   Widget build(BuildContext context) {
-    //SizeConfig.init(context);
     return Scaffold(
-      backgroundColor: Color(0xFFecf1f4),
-      appBar: myAppBar(title: 'Deposit', implyLeading: true, context: context),
-      bottomSheet: Container(
-        color: Colors.grey,
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
-        child: AppLargeButton(
-          //color: Color(0xFFf1f4f8),
-          // context: context,
-         // callback: () {},
-          text: 'Send Money',
-          textColor: Colors.white,
+
+      backgroundColor: AppColor.backGroundColor,
+      body: SizedBox(
+        child: Stack(
+          children: [
+            //_headSection(),
+            // Obx((){
+            //   if(_controller.loading == false){
+            //     return Center(
+            //       child: Container(
+            //           width: 100,
+            //           height: 100,
+            //           child: const CircularProgressIndicator()),
+            //     );
+            //   }else{
+            //     return _listbills();
+            //   }
+            // }),
+            // _payButton(),
+            const Positioned(
+                left: 10,
+                top: 70,
+                child: Text(
+                  "Pending ",
+                  style: TextStyle(
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white
+                  ),
+                )),
+            const Positioned(
+                right: 50,
+                top: 120,
+                child: Text(
+                  "Payments",
+                  style: TextStyle(
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white
+                  ),
+                ))
+          ],
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(15),
+    );
+    //   appBar: AppBar(leading: Icon(
+    //     Icons.notes,
+    //     size: 30,
+    //     color: Colors.white,
+    //   ),
+    //   toolbarHeight: 38,
+    //   backgroundColor: Colors.grey,
+    //   elevation: 0,
+    //   actions: [
+    //     Padding(padding: EdgeInsets.only(right: 15.0),
+    //     child: Icon(
+    //       Icons.info,
+    //       size: 30,
+    //       color: Colors.white,
+    //     )
+    //     )
+    //   ]
+    // ),
+  }
+  Widget body(){
+    return Container(
+      color: Colors.white,
+      child: Column(
         children: [
-          Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.black,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 20, right: 5),
-                          child: Text('\₵20,000.00',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 21,
-                                  color: Colors.black)),
-                        ),
-                      ],
-                    ),
-
-                    customColumn(
-                        title: 'PHONE NUMBER', subtitle: '0249657537'),
-
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 70,
-                child: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(50)),
-                    color: Color(0xFFecf1f4),
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xFFecf1f4),
-                    ),
-                    child: Icon(Icons.keyboard_backspace_rounded, color: Colors.white.withOpacity(0.5), size: 18),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 18,
-                child: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(50)),
-                    color: Color(0xFFecf1f4),
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xFFecf1f4),
-                    ),
-                    child: Transform.rotate(
-                      angle: math.pi,
-                      child: const Icon(Icons.keyboard_backspace_rounded,
-                          color: Colors.white, size: 16),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
           Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.grey,
-                border: Border.all(color: Color(0xFF73be93))            ),
+            height: 170,
+            decoration: BoxDecoration(color: Colors.grey,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(100),
+                    bottomRight: Radius.circular(100)
+            )
+            ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 30, 20, 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('\$1600.00',
-                          style: TextStyle(
-                              color: Color(0xFF73be93),
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold)),
-                      Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 18, vertical: 12),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            color: Color(0xFF73be93),
-                          ),
-                          child: Row(
-                            children: [
-                              Text('USD',
-                                  style: TextStyle(
-                                      color: Color(0xFF73be93),
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold)),
-                              Icon(CupertinoIcons.chevron_down,
-                                  color: Color(0xFF73be93),
-                                  size: 18)
-                            ],
-                          )),
-                    ],
+                Text(
+                  "DEPOSIT",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 50
                   ),
                 ),
-                Divider(color: Color(0xFF73be93), thickness: 2),
-                Container(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: Text('Send Money Purpose',
-                        style:
-                        TextStyle(color: Color(0xFF6f7c8b)))),
+            Text("Please fill the form to complete payment",
+              style: TextStyle(
+                color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25
+              ),),
               ],
             ),
-          ),
+          )
         ],
       ),
     );
   }
-
-  Widget customColumn({required String title, required String subtitle}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title.toUpperCase(),
-            style:
-            TextStyle(fontSize: 11, color: Colors.white.withOpacity(0.5))),
-        Text(subtitle,
-            style:
-            TextStyle(fontSize: 16, color: Colors.white.withOpacity(0.8))),
-      ],
-    );
-  }
-}
-
-myAppBar({required String title, required bool implyLeading, required BuildContext context}) {
 }

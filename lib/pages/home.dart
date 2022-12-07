@@ -27,6 +27,25 @@ final _paymentController = Get.put(PaymentController());
     double h = MediaQuery.of(context).size.height;
     //double w = MediaQuery.of(context).size.width;
     return Scaffold(
+    //     appBar: AppBar(leading: Icon(
+    //     Icons.notes,
+    //     size: 30,
+    //     color: Colors.white,
+    // ),
+    // toolbarHeight: 30,
+    // elevation: 0,
+    // backgroundColor: Colors.transparent,
+    // actions:[
+    // Padding(padding: EdgeInsets.only(right: 15.0),
+    // child: Icon(
+    // Icons.info,
+    // size: 30,
+    // color: Colors.white,
+    // )
+    // )
+    // ],
+    //     ),
+    //
       backgroundColor: AppColor.backGroundColor,
       body: SizedBox(
         height: h,
@@ -141,7 +160,7 @@ final _paymentController = Get.put(PaymentController());
                                       textColor: Colors.white,
                                       backgroundColor: Colors.white,
                                       onTap: () {
-                                        Get.to (const SendMoney());
+                                        Get.to (const Deposit());
                                         },
                                       text: "Deposit",
                                     ),
