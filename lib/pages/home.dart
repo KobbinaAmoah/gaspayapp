@@ -64,7 +64,6 @@ class _HomePageState extends State<HomePage> {
                 return _listbills();
               }
             }),
-            _payButton(),
             const Positioned(
                 left: 10,
                 top: 70,
@@ -88,6 +87,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      bottomNavigationBar: _payButton(),
     );
   }
 
@@ -130,18 +130,20 @@ class _HomePageState extends State<HomePage> {
                                     MediaQuery.of(context).size.height - 260,
                               )),
                           Positioned(
-                              right: MediaQuery.of(context).size.width*0.11,
+                              right: MediaQuery.of(context).size.width * 0.11,
                               child: Container(
                                 margin: const EdgeInsets.only(top: 10),
                                 padding: const EdgeInsets.all(6),
-                                width: MediaQuery.of(context).size.width*0.18,
-                                height: MediaQuery.of(context).size.height*0.45,
+                                width: MediaQuery.of(context).size.width * 0.18,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.45,
                                 decoration: BoxDecoration(
                                   color: AppColor.mainColor,
                                   borderRadius: BorderRadius.circular(29),
                                 ),
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     AppButtons(
                                       icon: Icons.cancel,
@@ -244,11 +246,12 @@ class _HomePageState extends State<HomePage> {
         top: 250,
         left: 0,
         right: 0,
-        bottom: 0,
+        bottom: 10,
         child: MediaQuery.removePadding(
             removeTop: true,
             context: context,
             child: ListView.builder(
+              shrinkWrap: true,
               itemCount: _controller.list.length,
               itemBuilder: (_, index) {
                 return Container(
@@ -401,15 +404,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   _payButton() {
-    return Positioned(
-        bottom: 10,
-        child: AppLargeButton(
-          onTap: () {
-            Get.to(() => Verify());
-          },
-          text: "Pay Bills",
-          textColor: Colors.white,
-        ));
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+      child: AppLargeButton(
+        onTap: () {
+          Get.to(() => Verify());
+        },
+        text: "Pay Bills",
+        textColor: Colors.white,
+      ),
+    );
   }
 
   // _textContainer() {

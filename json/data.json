@@ -34,23 +34,6 @@
     "due": "30.00",
     "more": "Pay Before",
     "img": "images/brand4.png"
-  },
-  {
-    "id": "90285",
-    "brand": "Shell Fuels",
-    "date": "12-01-08",
-    "status": false,
-    "due": "30.00",
-    "more": "Pay Before",
-    "img": "images/brand1.png"
-  },
-  {
-    "id": "39248",
-    "brand": "Shell Fuels",
-    "date": "12-01-08",
-    "status": false,
-    "due": "30.00",
-    "more": "Pay Before",
-    "img": "images/brand3.png"
   }
+
 ]
