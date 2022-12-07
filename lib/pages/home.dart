@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gaspayapp/component/colors.dart';
 import 'package:gaspayapp/controllers/data_controllers.dart';
+import 'package:gaspayapp/controllers/payment_controller.dart';
 import 'package:gaspayapp/pages/send_money.dart';
 import 'package:gaspayapp/pages/pin_verify.dart';
 import 'package:gaspayapp/pages/scan_page.dart';
@@ -19,7 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final DataController _controller = Get.put(DataController());
-
+final _paymentController = Get.put(PaymentController());
   @override
   Widget build(BuildContext context) {
     print(_controller.list);
@@ -38,14 +39,14 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                       width: 100,
                       height: 100,
-                      child: CircularProgressIndicator()),
+                      child: const CircularProgressIndicator()),
                 );
               }else{
                 return _listbills();
               }
             }),
             _payButton(),
-          Positioned(
+          const Positioned(
               left: 10,
               top: 70,
               child: Text(
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white
             ),
           )),
-            Positioned(
+            const Positioned(
                 right: 50,
                 top: 120,
                 child: Text(
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                           Positioned(
                               bottom: 0,
                               child: Container(
-                                color: Color(0xFFeef1f4).withOpacity(0.5),
+                                color: const Color(0xFFeef1f4).withOpacity(0.5),
                                 width: MediaQuery.of(context).size.width,
                                 height: MediaQuery.of(context).size.height - 260,
                               )),
@@ -140,17 +141,17 @@ class _HomePageState extends State<HomePage> {
                                       textColor: Colors.white,
                                       backgroundColor: Colors.white,
                                       onTap: () {
-                                        Get.to (SendMoney());
+                                        Get.to (const SendMoney());
                                         },
                                       text: "Deposit",
                                     ),
                                     AppButtons(
-                                      icon: Icons.add,
+                                      icon: Icons.qr_code_scanner,
                                       iconColor: AppColor.mainColor,
                                       textColor: Colors.white,
                                       backgroundColor: Colors.white,
                                       onTap: () {
-                                        Get.to (Scanpage());
+                                        Get.to (const Scanpage());
                                       },
                                       text: "Scan to Pay",
                                     ),
@@ -160,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                                       textColor: Colors.white,
                                       backgroundColor: Colors.white,
                                       onTap: () {
-                                        Get.to (HomePage());
+                                        Get.to (const HomePage());
                                       },
                                       text: "History",
                                     ),
@@ -170,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                                       textColor: Colors.white,
                                       backgroundColor: Colors.white,
                                       onTap: () {
-                                        Get.to(() => LoginPage());
+                                        Get.to(() => const LoginPage());
                                       },
                                       text: "Logout",
                                     ),
@@ -187,12 +188,12 @@ class _HomePageState extends State<HomePage> {
               height: 60,
               width: 60,
               decoration: BoxDecoration(
-                image: DecorationImage(image: AssetImage("images/lines.png")),
+                image: const DecorationImage(image: AssetImage("images/lines.png")),
                 boxShadow: [
                   BoxShadow(
                       blurRadius: 15,
-                      offset: Offset(0, 1),
-                      color: Color(0xFF11324d).withOpacity(0.2))
+                      offset: const Offset(0, 1),
+                      color: const Color(0xFF11324d).withOpacity(0.2))
                 ],
               ),
             )));
@@ -201,7 +202,7 @@ class _HomePageState extends State<HomePage> {
    _mainbackground() {
      return Positioned(
          child: Container(
-       decoration: BoxDecoration(
+       decoration: const BoxDecoration(
            image: DecorationImage(
                fit: BoxFit.cover, image: AssetImage("images/background.png"))),
      ));
@@ -214,7 +215,7 @@ class _HomePageState extends State<HomePage> {
         bottom: 0,
         child: Container(
           height: MediaQuery.of(context).size.height * 0.1,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.cover, image: AssetImage("images/curve.png"))),
         ));
@@ -236,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.only(top: 20, right: 20),
                   height: 110,
                   width: MediaQuery.of(context).size.width - 20,
-                  decoration: BoxDecoration(color: Colors.white,
+                  decoration: const BoxDecoration(color: Colors.white,
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(30),
                           bottomRight: Radius.circular(30)),
@@ -267,14 +268,14 @@ class _HomePageState extends State<HomePage> {
                                           image:
                                               AssetImage(_controller.list[index]["img"]))),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Column(
                                   children: [
                                     Text(
                                       _controller.list[index]["brand"],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 16,
                                           color: AppColor.mainColor,
                                           fontWeight: FontWeight.w700),
@@ -291,7 +292,7 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                             SizedText(text: _controller.list[index]["more"], color: AppColor.green),
-                            SizedBox(height: 0,),
+                            const SizedBox(height: 0,),
                           ],
                         ),
                         Row(
@@ -304,17 +305,25 @@ class _HomePageState extends State<HomePage> {
                                     _controller.list[index]["status"]=!_controller.list[index]["status"];
                                     print(_controller.list[index]["status"]);
                                     _controller.list.refresh();
+                                    if(_controller.list[index]["status"]==false){
+                                      _paymentController.removeCart(_controller.list[index]);
+
+                  }
+                                    else
+                  {
+                                      _paymentController.addToCart(_controller.list[index]);
+                                    }
                                   },
                                   child: Container(
                                     width: 70,
                                     height: 30,
+                                    alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(30),
                                         color: _controller.list[index]["status"]==false?AppColor.selectBackground:AppColor.green
                                     ),
                                     child: Text(
                                       "Select",
-                                      textAlign: TextAlign.justify,
                                       style: TextStyle(
                                           fontSize: 20,
                                           color: _controller.list[index]["status"]==false?AppColor.selectColor:Colors.white),
@@ -338,7 +347,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Container(
@@ -346,7 +355,7 @@ class _HomePageState extends State<HomePage> {
                               height: 35,
                               decoration: BoxDecoration(
                                   color: AppColor.halfOval,
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(30),
                                       bottomLeft: Radius.circular(30))),
                             )

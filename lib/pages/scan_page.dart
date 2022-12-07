@@ -16,7 +16,11 @@ class Scanpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Scan to pay')),
+      appBar: AppBar(
+        title: Text("Scan To Pay"),
+        centerTitle: true,
+        backgroundColor: Colors.black45,
+      ),
       body: Center(
 
         child: AppLargeButton(
@@ -85,17 +89,23 @@ class _QRViewExampleState extends State<QRViewExample> {
                     children: <Widget>[
                       Container(
                         margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              await controller?.toggleFlash();
-                              setState(() {});
+                        child: AppButtons(text: 'continue to payment',
+                          icon: Icons.arrow_forward,
+                            onTap: (){
+                          Get.to (Verify());
                             },
-                            child: FutureBuilder(
-                              future: controller?.getFlashStatus(),
-                              builder: (context, snapshot) {
-                                return Text('Flash: ${snapshot.data}');
-                              },
-                            )),
+
+                            // onPressed: () async {
+                            //   await controller?.toggleFlash();
+                            //   setState(() {});
+                            // },
+                            // child: FutureBuilder(
+                            //   future: controller?.getFlashStatus(),
+                            //   builder: (context, snapshot) {
+                            //     return Text('Flash: ${snapshot.data}');
+                            //   },
+                            // )),
+                        ),
                       ),
                       Container(
                         margin: const EdgeInsets.all(8),

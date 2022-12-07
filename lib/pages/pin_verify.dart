@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gaspayapp/component/error_dialog.dart';
 import 'package:gaspayapp/pages/home.dart';
+import 'package:gaspayapp/pages/payment_page.dart';
 import 'package:gaspayapp/pages/sign_up.dart';
 import 'package:get/get.dart';
 import '../controllers/auth_controller.dart';
@@ -23,10 +24,15 @@ final pinController= TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Verify Pin"),
+        centerTitle: true,
+        backgroundColor: Colors.white24,
+      ),
       body: Form(
           key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
@@ -54,6 +60,7 @@ final pinController= TextEditingController();
           cursorColor: const Color.fromARGB(245, 198, 182, 203),
           style: const TextStyle(fontSize: 17),
           controller: pinController,
+          keyboardType: TextInputType.number,
           decoration: const InputDecoration(
             icon: Icon(
               Icons.pin,
@@ -72,12 +79,14 @@ final pinController= TextEditingController();
                   : AppLargeButton(
                 onTap: () {
                   if (!_formKey.currentState!.validate()) return;
-                  if (pinController.value != getStringAsync('pin')) {
+                  if (pinController.value == "1234") {
+                    Get.to(()=>PaymentPage());
+                  }else{
                     showDialog(context: context, builder: (context) {
                       return const ErrorDialog("Incorrect Pin");
                     });
                   }
-//TODO: Navigate to payment/receipt
+
                 },
                 text: "Confirm PIN",
                 textColor: Colors.white,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gaspayapp/component/error_dialog.dart';
 import 'package:gaspayapp/controllers/auth_controller.dart';
 import 'package:gaspayapp/pages/home.dart';
+import 'package:gaspayapp/pages/scan_page.dart';
 import 'package:gaspayapp/pages/sign_up.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -59,42 +60,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-            // Container(
-            //   height: 300,
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90)),
-            //     color: Colors.indigoAccent,
-            //     gradient: LinearGradient(
-            //       colors: [(new Color(0xFF5C6B6CB)),(new Color(0xFF5C6B6CB))],
-            //       begin: Alignment.topCenter,
-            //       end: Alignment.bottomCenter,
-            //     ),
-            //   ),
-            //   child: Center(
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //       crossAxisAlignment: CrossAxisAlignment.center,
-            //       children: [
-            //         Container(
-            //           margin: EdgeInsets.only(top: 40),
-            //           child: Image.asset("images/logo.png"),
-            //           height: 200,
-            //           width: 200,
-            //         ),
-            //         Container( margin: EdgeInsets.only(right: 20, top: 20),
-            //           alignment: Alignment.bottomRight,
-            //           child: Text(
-            //             "Login",
-            //             style: TextStyle(
-            //               fontSize: 20,
-            //               color: Colors.indigo,
-            //             ),
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //   ),
-            // ),
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20, top: 50),
               padding: const EdgeInsets.only(left: 20, right: 20),
@@ -195,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
 
                       controller.login().then((value) {
                         if (value) {
-                          Get.offAll(() => const HomePage());
+                          Get.offAll(() => const Scanpage());
                         }
                       }).catchError((e) {
                         setState(() {
@@ -235,65 +200,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-
-// class LoginPage extends StatefulWidget{
-//   @override
-//   State<StatefulWidget> createState() => initState();
-//
-//   initState() {}
-//
-// }
-// class InitState extends State<LoginPage>{
-//   @override
-//   Widget build(BuildContext context) {
-//     return initWidget();
-//   }
-//
-// }
-//
-// Widget initWidget() {
-//   return Scaffold(
-//     body: SingleChildScrollView(
-//       child: Column(
-//         children: [
-//           Container(
-//             height: 300,
-//             decoration: BoxDecoration(
-//               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90)),
-//               color: Color(0xFFBBDEFB),
-//               gradient: LinearGradient(
-//                 colors: [(new Color(0xFFBBDEFB)),(new Color(0xFFE3F2FD))],
-//                   begin: Alignment.topCenter,
-//                 end: Alignment.bottomCenter,
-//             ),
-//           ),
-//         child: Center(
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: [
-//               Container(
-//                 margin: EdgeInsets.only(top: 40),
-//                 child: Image.asset("images/logo.png"),
-//                 height: 90,
-//                 width: 90,
-//               ),
-//               Container(
-//                 child: Text(
-//                   "login",
-//                   style: TextStyle(
-//                     fontSize: 20,
-//                     color: Color(0xB3FFFFFF),
-//                   ),
-//                 ),
-//               )
-//             ],
-//           ),
-//         ),
-//           )],
-//
-//       ),
-//     ),
-//   );
-// }
