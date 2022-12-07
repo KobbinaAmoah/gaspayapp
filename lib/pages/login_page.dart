@@ -160,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
 
                       controller.login().then((value) {
                         if (value) {
-                          Get.offAll(() => const Scanpage());
+                          Get.offAll(() => const HomePage());
                         }
                       }).catchError((e) {
                         setState(() {
