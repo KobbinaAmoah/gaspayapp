@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gaspayapp/component/error_dialog.dart';
+import 'package:gaspayapp/controllers/data_controllers.dart';
+import 'package:gaspayapp/controllers/payment_controller.dart';
 import 'package:gaspayapp/pages/home.dart';
 import 'package:gaspayapp/pages/payment_page.dart';
 import 'package:gaspayapp/pages/sign_up.dart';
@@ -9,6 +11,8 @@ import '../widgets/large_buttons.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class Verify extends StatefulWidget {
+  const Verify({super.key});
+
   @override
   State<Verify> createState() => _VerifyState();
 }
@@ -17,7 +21,8 @@ class _VerifyState extends State<Verify> {
   // const Verify({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
   final pinController = TextEditingController();
-  final AuthController controller = Get.put(AuthController());
+  final DataController _dataController = Get.find();
+  final PaymentController _payController = Get.find();
 
   bool isLoading = false;
 
@@ -78,22 +83,26 @@ class _VerifyState extends State<Verify> {
                   ),
                 ),
               ),
-               AppLargeButton(
-                      onTap: () {
-                        if (!_formKey.currentState!.validate()) return;
-                        if (pinController.text == getStringAsync("pin")) {
-                          Get.to(() => PaymentPage());
-                        } else {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return const ErrorDialog("Incorrect Pin");
-                              });
-                        }
-                      },
-                      text: "Confirm PIN",
-                      textColor: Colors.white,
-                    ).paddingSymmetric(horizontal: 20),
+              AppLargeButton(
+                onTap: () {
+                  if (!_formKey.currentState!.validate()) return;
+                  if (pinController.text == getStringAsync("pin")) {
+                    //Remove items from main list
+                    for (var item in _payController.cart) {
+                      _dataController.removeItem(item["id"]);
+                    }
+                    Get.to(() => PaymentPage());
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const ErrorDialog("Incorrect Pin");
+                        });
+                  }
+                },
+                text: "Confirm PIN",
+                textColor: Colors.white,
+              ).paddingSymmetric(horizontal: 20),
             ],
           )),
     );

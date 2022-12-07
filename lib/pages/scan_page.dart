@@ -70,158 +70,109 @@ class _QRViewPageState extends State<QRViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            top: 50,
-            right: 20,
-            child: FutureBuilder(
-              future: controller?.getCameraInfo(),
-              builder: (context, snapshot) {
-                if (snapshot.data != null) {
-                  return IconButton(
-                    icon: const Icon(Icons.cameraswitch_rounded),
-                    onPressed: () async {
-                      await controller?.flipCamera();
-                      setState(() {});
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 4,
+            child: _buildQrView(context),
+          ),
+          Expanded(
+            flex: 1,
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  FutureBuilder(
+                    future: controller?.getCameraInfo(),
+                    builder: (context, snapshot) {
+                      if (snapshot.data != null) {
+                        return IconButton(
+                          icon: const Icon(Icons.cameraswitch_rounded),
+                          onPressed: () async {
+                            await controller?.flipCamera();
+                            setState(() {});
+                          },
+                        );
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
                     },
-                  );
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
-            ),
-          ),
-          Column(
-            children: <Widget>[
-              Expanded(
-                flex: 4,
-                child: _buildQrView(context),
-              ),
-              Expanded(
-                flex: 1,
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Builder(builder: (context) {
-                        if (result != null) {
-                          if (result!.code != null) {
-                            _controller.list.add(jsonDecode(result!.code!));
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text('Scan successful'),
-                                    content: Text('Data added to list'),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const HomePage()));
-                                        },
-                                        child: const Text('Okay'),
-                                      )
-                                    ],
-                                  );
-                                });
-                          } else {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const ErrorDialog("Scan failed");
-                                });
-                          }
-
-                          return const SizedBox.shrink();
-                        } else {
-                          return const SizedBox.shrink();
-                          //Text('Scan a code');
-                        }
-                      }),
-
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   crossAxisAlignment: CrossAxisAlignment.center,
-                      //   children: <Widget>[
-                      //     Container(
-                      //       margin: const EdgeInsets.all(8),
-                      //       child: AppButtons(
-                      //         text: 'continue to payment',
-                      //         icon: Icons.arrow_forward,
-                      //         onTap: () {
-                      //           Get.to(Verify());
-                      //         },
-
-                      //         // onPressed: () async {
-                      //         //   await controller?.toggleFlash();
-                      //         //   setState(() {});
-                      //         // },
-                      //         // child: FutureBuilder(
-                      //         //   future: controller?.getFlashStatus(),
-                      //         //   builder: (context, snapshot) {
-                      //         //     return Text('Flash: ${snapshot.data}');
-                      //         //   },
-                      //         // )),
-                      //       ),
-                      //     ),
-                      //     Container(
-                      //       margin: const EdgeInsets.all(8),
-                      //       child: ElevatedButton(
-                      //           onPressed: () async {
-                      //             await controller?.flipCamera();
-                      //             setState(() {});
-                      //           },
-                      //           child: FutureBuilder(
-                      //             future: controller?.getCameraInfo(),
-                      //             builder: (context, snapshot) {
-                      //               if (snapshot.data != null) {
-                      //                 return Text(
-                      //                     'Camera facing ${describeEnum(snapshot.data!)}');
-                      //               } else {
-                      //                 return const Text('loading');
-                      //               }
-                      //             },
-                      //           )),
-                      //     )
-                      //   ],
-                      // ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   crossAxisAlignment: CrossAxisAlignment.center,
-                      //   children: <Widget>[
-                      //     Container(
-                      //       margin: const EdgeInsets.all(8),
-                      //       child: AppButtons(
-                      //         onTap: () async {
-                      //           await controller?.pauseCamera();
-                      //         }, text: 'Pause', icon: Icons.pause,
-                      //         ),
-                      //       ),
-                      //     Container(
-                      //       margin: const EdgeInsets.all(8),
-                      //       child: AppButtons(
-                      //         onTap: () async {
-                      //           await controller?.resumeCamera();
-                      //         },
-                      //         icon: Icons.restart_alt, text: 'resume',
-                      //         ),
-                      //       ),
-                      //   ],
-                      // ),
-                    ],
                   ),
-                ),
-              )
-            ],
-          ),
+
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: <Widget>[
+                  //     Container(
+                  //       margin: const EdgeInsets.all(8),
+                  //       child: AppButtons(
+                  //         text: 'continue to payment',
+                  //         icon: Icons.arrow_forward,
+                  //         onTap: () {
+                  //           Get.to(Verify());
+                  //         },
+
+                  //         // onPressed: () async {
+                  //         //   await controller?.toggleFlash();
+                  //         //   setState(() {});
+                  //         // },
+                  //         // child: FutureBuilder(
+                  //         //   future: controller?.getFlashStatus(),
+                  //         //   builder: (context, snapshot) {
+                  //         //     return Text('Flash: ${snapshot.data}');
+                  //         //   },
+                  //         // )),
+                  //       ),
+                  //     ),
+                  //     Container(
+                  //       margin: const EdgeInsets.all(8),
+                  //       child: ElevatedButton(
+                  //           onPressed: () async {
+                  //             await controller?.flipCamera();
+                  //             setState(() {});
+                  //           },
+                  //           child: FutureBuilder(
+                  //             future: controller?.getCameraInfo(),
+                  //             builder: (context, snapshot) {
+                  //               if (snapshot.data != null) {
+                  //                 return Text(
+                  //                     'Camera facing ${describeEnum(snapshot.data!)}');
+                  //               } else {
+                  //                 return const Text('loading');
+                  //               }
+                  //             },
+                  //           )),
+                  //     )
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: <Widget>[
+                  //     Container(
+                  //       margin: const EdgeInsets.all(8),
+                  //       child: AppButtons(
+                  //         onTap: () async {
+                  //           await controller?.pauseCamera();
+                  //         }, text: 'Pause', icon: Icons.pause,
+                  //         ),
+                  //       ),
+                  //     Container(
+                  //       margin: const EdgeInsets.all(8),
+                  //       child: AppButtons(
+                  //         onTap: () async {
+                  //           await controller?.resumeCamera();
+                  //         },
+                  //         icon: Icons.restart_alt, text: 'resume',
+                  //         ),
+                  //       ),
+                  //   ],
+                  // ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -254,9 +205,38 @@ class _QRViewPageState extends State<QRViewPage> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+      //add data to list
+      if (scanData.code != null && scanData.code!.contains('brand')) {
+        _controller.addItem(jsonDecode(scanData.code!)).then((value) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text('Scan successful'),
+                  content: Text('Data added to list'),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()));
+                      },
+                      child: const Text('Okay'),
+                    )
+                  ],
+                );
+              });
+        });
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return const ErrorDialog("Scan failed!\nInvalid QR code");
+            });
+      }
     });
   }
 

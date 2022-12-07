@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gaspayapp/component/colors.dart';
+import 'package:gaspayapp/controllers/data_controllers.dart';
 import 'package:gaspayapp/controllers/payment_controller.dart';
 import 'package:gaspayapp/pages/home.dart';
 import 'package:gaspayapp/widgets/buttons.dart';
@@ -20,8 +21,8 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   void initState() {
     for (var e in _controller.cart) {
-      total += double.parse( e["due"]);
-    
+      total += double.parse(e["due"]);
+      
     }
     super.initState();
   }
@@ -73,7 +74,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     itemCount: _controller.cart.length,
                     itemBuilder: (_, index) {
                       final item = _controller.cart[index];
-              
+
                       return Column(
                         children: [
                           Row(
@@ -83,7 +84,10 @@ class _PaymentPageState extends State<PaymentPage> {
                                 children: [
                                   Container(
                                     margin: const EdgeInsets.only(
-                                        top: 15, left: 20,right:10, bottom: 10),
+                                        top: 15,
+                                        left: 20,
+                                        right: 10,
+                                        bottom: 10),
                                     width: 50,
                                     height: 50,
                                     decoration: BoxDecoration(
@@ -99,7 +103,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                     height: 10,
                                   ),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         item["brand"],
@@ -122,9 +127,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                   ),
                                 ],
                               ),
-                            
                               Padding(
-                                padding: const EdgeInsets.only(right:10),
+                                padding: const EdgeInsets.only(right: 10),
                                 child: Text(
                                   "₵ ${item["due"]}",
                                   style: const TextStyle(
@@ -205,5 +209,4 @@ class _PaymentPageState extends State<PaymentPage> {
       ),
     );
   }
-
 }

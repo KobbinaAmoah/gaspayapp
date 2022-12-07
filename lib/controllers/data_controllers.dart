@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class DataController extends GetxController {
   var list = [].obs;
-  final service = new DataServices();
+  final service =  DataServices();
   var _loading = false.obs;
 
   get loading => _loading.value;
@@ -30,10 +30,9 @@ class DataController extends GetxController {
   }
 
   Future<void> addItem(Map<String, dynamic> item) async {
-    try {
       list.add(item);
-    } catch (e) {
-      rethrow;
-    }
+  }
+  void removeItem(String id) {
+    return list.removeWhere((e) => e["id"] == id);
   }
 }
